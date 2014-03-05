@@ -10,12 +10,15 @@ class Wechat{
 	$this->tpl = $tpl;
     }
     //创建工具对象
-    function valid($token)
+    function valid($token, $echoStr)
     {
-	$echoStr = trim($_GET["echostr"]);
 	if($this->checkSignature($token)){
-	    $tool->logger("验证通过!".$echoStr);
+	    $this->tool->logger("开发验证通过!");
 	    echo $echoStr;
+	    $this->tool->traceBeginOrEnd("0");
+	    exit;
+	}else{
+	    $this->tool->logger("开发验证未通过!");
 	    exit;
 	}
     }
@@ -26,7 +29,8 @@ class Wechat{
 	$nonce = $_GET["nonce"];	
 
 	$tmpArr = array($token, $timestamp, $nonce);
-	sort($tmpArr);
+	sort($tmpArr, SORT_STRING);
+	//sort($tmpArr);
 	$tmpStr = implode( $tmpArr );
 	$tmpStr = sha1( $tmpStr );
 
@@ -273,12 +277,11 @@ class Wechat{
 		$this->tool->responseText($fromUsername,$toUsername,$contentStr,$this->tpl->textTpl);
 		break;
 	    }
-	    $this->tool->traceBeginOrEnd("0");
-	    exit;
 	}else{
 	    $this->tool->logger("\n 微信服务器未发送任何数据至用户服务器。");
-	    exit;
 	}
+	$this->tool->traceBeginOrEnd("0");
+	exit;
     }
 }
 ?>

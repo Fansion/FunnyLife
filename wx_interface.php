@@ -6,12 +6,6 @@ require_once("wx_wechat.php");
 
 //define your token
 define("TOKEN", "fansion");
-$echoStr = trim($_get["echostr"]);
-if(empty($echoStr))
-{
-//    去掉注释用于微信公众平台开发模式认证
-//    $echoStr = "Authentication passed!";
-}
 //声明模板对象
 $tpl = new Tpl();
 //声明工具对象
@@ -20,8 +14,9 @@ $wechatObj = new Wechat($tool,$tpl);
 $tool->tracebeginorend("1");
 $tool->tracehttp();
 
-if(!empty($echoStr)){
-    $wechatObj->valid(TOKEN);
+$echoStr = $_GET["echostr"];
+if($echoStr){
+    $wechatObj->valid(TOKEN, $echoStr);
 }else{
     $wechatObj->response(); 
 }
