@@ -9,15 +9,16 @@ class Tool{
     function traceBeginOrEnd($flag)
     {
 	if($flag == "1"){
-	    file_put_contents("./log.html","起始================================\n",FILE_APPEND);
+	    //被包含到interface.php中
+	    file_put_contents("class/wx_FL/log.html","起始================================\n",FILE_APPEND);
 	}else{
-	    file_put_contents("./log.html","终止================================\n",FILE_APPEND);
+	    file_put_contents("class/wx_FL/log.html","终止================================\n",FILE_APPEND);
 	}
     }
     //普通记录
     function logger($content)
     {
-	file_put_contents("./log.html",date('Y-m-d H:i:s').$content."\n",FILE_APPEND);
+	file_put_contents("class/wx_FL/log.html",date('Y-m-d H:i:s').$content."\n",FILE_APPEND);
     }
     //记录微信服务器向用户服务器发送的消息
     function traceHttp()
@@ -38,6 +39,9 @@ class Tool{
 	$contentStr .= "-历史上的今天\n";
 	$contentStr .= "-听故事读笑话\n";
 	$contentStr .= "-<a href=\"http://www.qiushibaike.com/\">糗事百科</a>\n";
+	$contentStr .= "--查成绩\n";
+	$contentStr .= "--导航找funnylife所在地\n";
+	$contentStr .= "--查周边酒店，KTV，银行等\n";
 	$contentStr .= "--关于我\n";
 	$contentStr .= "To be continued...\n";
 	$contentStr .= "输入h获取详细操作说明。\n";
@@ -46,17 +50,21 @@ class Tool{
     function getHelp()
     {
 	$contentStr = "详细操作说明：\n";
-	$contentStr .= " 1.默认咱俩已处于聊天状态，聊天时字数尽量少，我一听不懂就会给你讲个故事\n";
-	$contentStr .= " 2.即点即玩\n";
-	$contentStr .= " 3.发送你所在的位置，或者如'合肥天气'\n";
-	$contentStr .= " 4.输入'翻译'或者'fy'\n";
+	$contentStr .= " 1.默认咱俩已处于聊天状态，聊天时说话字数尽量少，我听不懂就会给你讲个故事\n";
+	$contentStr .= " 2.即点即玩,保证网络环境良好，最好wifi\n";
+	$contentStr .= " 3.发送'天气'\n";
+	$contentStr .= " 4.发送'翻译'或者'fy'\n";
 	$contentStr .= " 5.选择快递公司并输入包裹单号\n";
-	$contentStr .= " 6.发送一张清晰的人脸照给，我会简单的人脸识别\n";
-	$contentStr .= " 7.输入'听歌'\n";
-	$contentStr .= " 8.输入'历史'\n";
-	$contentStr .= " 9.输入'故事'或'笑话'\n";
-	$contentStr .= "10.点击进入糗百官网\n";
-	$contentStr .= " 0.我的<a href=\"".$this->tpl->myHomeUrl."\">个人主页</a>\n";
+	$contentStr .= " 6.发送一张清晰的人脸照给，简单的人脸识别\n";
+	$contentStr .= " 7.发送'听歌'\n";
+	$contentStr .= " 8.发送'历史'\n";
+	$contentStr .= " 9.发送'故事'或'笑话'\n";
+	$contentStr .= "10.点击直接进入糗百官网\n";
+	$contentStr .= "11.发送'ccj'(只针对xxxxxxxx)\n";
+	$contentStr .= "12.输入'dh或导航'\n";
+	$contentStr .= "13.输入'ss+酒店（或银行等）'\n";
+	$contentStr .= "备注：查天气|导航|搜索服务之前需发送你当前位置给我，每隔一小时之后需重新发送，另外导航效果比较差待改进\n";
+	$contentStr .= " 0.我的<a href=\"".$this->tpl->myHomeUrl."\">个人主页</a>(久未更新)，当然有问题可联系我，我个人微信号搜xxxxxxxx请附带验证信息\n";
 	return $contentStr;
     }
     function getUsage($seq)
@@ -83,6 +91,21 @@ class Tool{
 	    $data .= "fy中西我爱你\n";
 	    $data .= "fy英西I love you\n";
 	    $data .= "fy日西さようなら\n";
+	}
+	else if($seq == 3){
+	    $data = "查成绩操作指南：\n";
+	    $data .= "默认您的帐号密码未绑定到<a href=\"http://yjs.ustc.edu.cn/\">中科大研究生管理系统</a>。\n";
+	    $data .= "输入:\n";
+	    $data .= "ccj-userid-userpwd\n";
+	    $data .= "绑定帐号密码到系统。\n";
+	    $data .= "例如: ccj-xxxxxxxx-xxxxxxxx\n";
+	    $data .= "绑定系统后输入:\n";
+	    $data .= "ccj-jb\n";
+	    $data .= "解除绑定密码帐号到系统。\n";
+	    $data .= "绑定系统后输入:\n";
+	    $data .= "ccj\n";
+	    $data .= "查询所有课程成绩。\n";
+	    $data .= "注：如果需要更换帐号密码需先解除绑定旧帐号密码然后重新绑定帐号密码,当然也可直接绑定新的帐号密码覆盖旧的帐号密码。\n";
 	}
 	return $data;
     }
@@ -235,7 +258,7 @@ class Tool{
 	$count = 0;
 	foreach($history_arr_reverse as $history_item)
 	{
-	    if($count < 20){
+	    if($count < $this->tpl->history_result_num){
 		$result .= $history_item."\n";
 	    }
 	    $count++;
@@ -485,8 +508,7 @@ class Tool{
 	$this->logger("\n ".$data);
 	return $data;
     }
-    function getMusicUrl($title, $author)
-    {
+    function getMusicUrl($title, $author){
 	$flag = false;
 	$requestUrl = "http://box.zhangmen.baidu.com/x?op=12&count=1&title={TITLE}$$"."{AUTHOR}$$$$";
 	$requestUrl = str_replace('{TITLE}',urlencode($title),$requestUrl);

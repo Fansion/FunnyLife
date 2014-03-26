@@ -33,18 +33,22 @@ class Tpl{
 	<FuncFlag>0</FuncFlag>
 	</xml>";
     var $ipUrl = "domain name";
-    var $picUrl = "pic path";
+    var $ipUrlForLocalSearch = "damain name/xxxx.jsp?p1={from_longitute},{from_latitute}&p2={to_longitute},{to_latitute}";
+    var $picUrl = "xxxx";
+    var $codeimageUrl = "xxxx";
     var $myHomeUrl = "homepage url";
-    var $translate_api_key = 'baidu translate api key';
+    var $translate_api_key = 'key';
     var $translate_url = 'http://openapi.baidu.com/public/2.0/bmt/translate?client_id={YourApiKey}&q={YourContent}&from={from}&to={to}';
-    var $face_api_key = 'faceplusplus api key';
-    var $face_api_secret = 'faceplusplus api secret';
+    var $face_api_key = 'key';
+    var $face_api_secret = 'secret';
     var	$faceUrl = 'http://apicn.faceplusplus.com/v2/detection/detect?';
     var $joke_url="http://api100.duapp.com/joke/?appkey=0020130430&appsecert=fa6095e113cd28fd";
+    var $history_result_num = 20;
     var $history_url="http://api100.duapp.com/history/?appkey=trialuser";
     var $map_api_url="http://api.map.baidu.com/geocoder?";
-    var $air_quality_url="http://api100.duapp.com/airquality/?appkey=0020130430&appsecert=fa6095e113cd28fd&city="; 
-    var $weather_api_url="http://php.weather.sina.com.cn/xml.php?password=DJOYnieT8234jlsK";
+    var $baidu_appkey="key";
+    var $air_quality_url="http://api100.duapp.com/airquality/?appkey=0020130430&appsecert=fa6095e113cd28fd&city=";     var $weather_api_url="http://php.weather.sina.com.cn/xml.php?password=DJOYnieT8234jlsK";
     var $xiaojoUrl = 'http://www.xiaojo.com/bot/chata.php';
+    var $baiduLocalSearchUrl = "http://api.map.baidu.com/telematics/v3/local?location={longitude},{latitude}&keyWord={keyword}&output=xml&ak={appkey}&radius={radius}";
 }
 ?>
