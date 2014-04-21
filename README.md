@@ -3,7 +3,7 @@ FunnyLife
 
 Introduction
 ---------
-Here is a backup of programs wrote for a wechat public account named <!---FunnyLife-->(can be search at wechat public account). 
+Here is a backup of programs wrote for a wechat public account named **FunnyLife**(can be search at wechat public account). 
 
 It mainly consists of serval *.php* files and a dir for pics used for the service. Also there is a *.py* file(getScore) crawing scores from [USTC](yjs.ustc.edu.cn/).
 
