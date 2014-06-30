@@ -7,6 +7,7 @@ Here is a backup of programs wrote for a wechat public account named **FunnyLife
 
 It mainly consists of serval *.php* files and a dir for pics used for the service. Also there is a *.py* file(getScore) crawing scores from [USTC](yjs.ustc.edu.cn/).
 
+You can use whatever you want here under GPL.
 
 Environment
 ---------
@@ -22,6 +23,8 @@ At first I did not use framework in my programs. Then I learned how to deal with
 In addtion, I will choose to read [柳峰](http://book.douban.com/subject/25838708/) (implemented in a Java way) if time is convenient. Actually there are so much to learn to write good codes.
 
 
-Remarks
+NOTES
 ---------
-Personal data are replaced by xxxxxx. CCJ(crawing scores) module is implemented mainly for the convenience of checking scores at [USTC](yjs.ustc.edu.cn/).  Correlative modules are needed to run codes here, such as tesseract ocr, beautiful soup and so on.
+Personal data are replaced by XXX. CCJ(crawing scores) module is implemented mainly for the convenience of checking scores at [USTC](yjs.ustc.edu.cn/).  Correlative modules are needed to run codes above, such as tesseract ocr, 	beautiful soup and so on. Remember to check the log files to get these codes running, contact me if necessary. 
+
+

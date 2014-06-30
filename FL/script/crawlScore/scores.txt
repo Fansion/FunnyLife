@@ -1,0 +1,111 @@
+[<tr bgcolor="#FFFFFF" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">FL05301</td>
+<td class="bt06">研究生综合英语</td>
+<td class="bt06">通过</td>
+<td class="bt06">2</td>
+<td class="bt06">40</td>
+<td class="bt06">外语系</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">公共必修课</td>
+</tr>, <tr bgcolor="#E9F2F7" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">FL05302</td>
+<td class="bt06">日常交流英语</td>
+<td class="bt06">通过</td>
+<td class="bt06">2</td>
+<td class="bt06">40</td>
+<td class="bt06">-</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">公共必修课</td>
+</tr>, <tr bgcolor="#FFFFFF" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">PS05101a</td>
+<td class="bt06">自然辩证法概论</td>
+<td class="bt06">通过</td>
+<td class="bt06">1</td>
+<td class="bt06">18</td>
+<td class="bt06">-</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">公共必修课</td>
+</tr>, <tr bgcolor="#E9F2F7" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">PS05102a</td>
+<td class="bt06">中国特色社会主义理论与实践研究</td>
+<td class="bt06">通过</td>
+<td class="bt06">2</td>
+<td class="bt06">36</td>
+<td class="bt06">-</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">公共必修课</td>
+</tr>, <tr bgcolor="#FFFFFF" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">CS05101</td>
+<td class="bt06">算法设计与分析</td>
+<td class="bt06">84</td>
+<td class="bt06">3</td>
+<td class="bt06">60</td>
+<td class="bt06">黄刘生等</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">基础课</td>
+</tr>, <tr bgcolor="#E9F2F7" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">CS05102</td>
+<td class="bt06">组合数学</td>
+<td class="bt06">74</td>
+<td class="bt06">3</td>
+<td class="bt06">60</td>
+<td class="bt06">许胤龙等</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">基础课</td>
+</tr>, <tr bgcolor="#FFFFFF" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">CS05112</td>
+<td class="bt06">高级计算机网络</td>
+<td class="bt06">86</td>
+<td class="bt06">3</td>
+<td class="bt06">60</td>
+<td class="bt06">华蓓等</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">基础课</td>
+</tr>, <tr bgcolor="#E9F2F7" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">CS05116</td>
+<td class="bt06">高级数据库系统</td>
+<td class="bt06">78</td>
+<td class="bt06">3</td>
+<td class="bt06">60</td>
+<td class="bt06">岳丽华</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">基础课</td>
+</tr>, <tr bgcolor="#FFFFFF" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">CS05163a</td>
+<td class="bt06">复杂数字系统设计技术</td>
+<td class="bt06">86</td>
+<td class="bt06">3</td>
+<td class="bt06">60</td>
+<td class="bt06">王行甫</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">专业课</td>
+</tr>, <tr bgcolor="#E9F2F7" class="bt06">
+<td class="bt06">SA13011045</td>
+<td class="bt06">付欢欢</td>
+<td class="bt06">CS05172a</td>
+<td class="bt06">无线自组织网络</td>
+<td class="bt06">86</td>
+<td class="bt06">2</td>
+<td class="bt06">40</td>
+<td class="bt06">张信明</td>
+<td class="bt06">2013-2014学年第一学期</td>
+<td class="bt06">专业课</td>
+</tr>]

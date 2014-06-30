@@ -1,0 +1,195 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#  getScore
+#  
+#  Copyright 2014 frank <frank@ustcfrank>
+#  
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#  MA 02110-1301, USA.
+#  
+#  
+
+import urllib,urllib2,cookielib
+import re,string
+from bs4 import BeautifulSoup
+import subprocess
+import os, sys 
+
+class Spider:  
+    # 声明相关的属性  
+    def __init__(self, userid, userpwd):    
+		self.path = 'script/crawlScore/' #文件路径
+		self.loginUrl = 'http://yjs.ustc.edu.cn/default.asp'   # 待登录的url
+		self.checkcodeUrl = 'http://yjs.ustc.edu.cn/checkcode.asp'   # 获取验证码
+		self.scoreUrl = 'http://yjs.ustc.edu.cn/score/m_score.asp' # 待获取成绩的url
+		self.cookieJar = cookielib.CookieJar()     # 初始化一个CookieJar来处理Cookie的信息
+		self.postdata={
+			'userid':'',
+			'userpwd':'', 
+			'txt_check':'', 
+			'x':'0', 
+			'y':'0'
+		}     # 待POST的数据
+		self.postdata['userid']  = userid.strip(' \r\n')
+		self.postdata['userpwd']  = userpwd.strip(' \r\n')
+		self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookieJar))
+		self.len1 = 15 # 用于格式化输出
+		self.len2 = 5
+
+    # 汉字对齐    
+    def format_word_encoded_by_utf8(self, word, show_length, LorR):
+		word_len = len(word)+(show_length-len(word)/3)*2
+		if LorR == 'l':
+			return word.ljust(word_len,'*')
+		if LorR == 'r':
+			return word.rjust(word_len,'*')
+    # 汉字对齐    
+    def format_word(self, word, show_length, LorR):
+		word_len = len(word)+(show_length-len(word))*2
+		# 汉字是数字长度2倍，对每个数字长度进行加1
+		if re.search('[0-9]', word):
+			word_len +=  len(word)
+		if LorR == 'l':
+			return word.ljust(word_len,'*')
+		if LorR == 'r':
+			return word.rjust(word_len,'*')
+    #根据是否有属性值选择符合要求的tag
+    def getTagContainsScore(self, tag):
+		return tag.has_attr('class') and tag.has_attr('bgcolor') and not tag.has_attr('id') and not tag.has_attr('height') and not tag.has_attr('align')
+    def downloadCheckcode(self):
+		# 下载验证码到本地
+		codeimage = self.opener.open(self.checkcodeUrl)
+		checkcode = open(self.path+'codeimage.bmp','w')
+		checkcode.write(codeimage.read())
+		checkcode.close()
+    
+    def recognizeCodeUsingTesseracct(self):
+		# 创建子进程 调用tesseract ocr 识别引擎识别验证码
+		txt_check = subprocess.check_output('tesseract '+self.path+'codeimage.bmp code -psm 7', shell=True)
+		#-----------------code.txt需单独删除
+		#txt_check = subprocess.check_output('cat '+self.path+' code.txt', shell=True)
+		txt_check = subprocess.check_output('cat  code.txt', shell=True)
+		#print txt_check
+		return txt_check.strip('\r\n ')
+
+    def downloadScores(self, soup):
+		scores = open(self.path + 'scores.txt','w')
+		scores.write(str(soup.find_all(self.getTagContainsScore)))
+		scores.close()
+
+    def printScoresWithFormat(self, userid, soup):
+		ret = ''
+		ret += '--学号：' + userid + '--\n'
+		ret += self.format_word_encoded_by_utf8('课程名称',self.len1,'l')
+		ret += self.format_word_encoded_by_utf8('成绩',self.len2,'l')
+		ret += self.format_word_encoded_by_utf8('学分',self.len2,'l')
+		ret += "----------------\n"
+		#找到课程名，成绩，学分三列	
+		courses = soup.find_all(self.getTagContainsScore)
+		for course in courses:
+			ret += self.format_word(course.contents[7].string,self.len1,'l').encode('utf-8')
+			ret += self.format_word(course.contents[9].string,self.len2,'l').encode('utf-8')
+			ret += self.format_word(course.contents[11].string,self.len2,'l').encode('utf-8')
+			ret += "\n" 
+		print ret
+
+    def printScores(self, userid, soup):
+		ret = ''
+		ret += '--学号：' + userid + '------\n'
+		ret += '课程名称' + "\n"
+		ret += '成绩' + "\n"
+		ret += '学分' + "\n"
+		ret += "----------------\n"
+		#找到课程名，成绩，学分三列	
+		courses = soup.find_all(self.getTagContainsScore)
+		for course in courses:
+			ret += course.contents[7].string.encode('utf-8')+"\n"
+			ret += course.contents[9].string.encode('utf-8')+"\n"
+			ret += course.contents[11].string.encode('utf-8')+"\n"
+			ret += "----------------\n"
+		print ret
+
+    def init(self):
+		originRequest = urllib2.Request(url = self.loginUrl)
+		result = self.opener.open(originRequest)  # 初始化链接并且获取cookie
+		# 打印cookie的值
+		#for item in self.cookieJar:
+			#print 'Name = '+item.name
+			#print 'Value = '+item.value
+		
+		self.downloadCheckcode()
+			
+		self.postdata['txt_check'] = self.recognizeCodeUsingTesseracct() 
+		userid = self.postdata['userid']
+		ret = self.postdata['txt_check'] + ' failed!'
+		# 判断验证码是否合法
+		if(not re.search('[0-9]{4}',self.postdata['txt_check'])):
+			print ret
+			print '验证码识别错误，含非数字，try again!'
+			return
+		# 对待post数据urlencode
+		self.postdata = urllib.urlencode(self.postdata)
+		#print self.postdata
+			
+		# 自定义一个成绩查询请求
+		loginRequest = urllib2.Request(url = self.loginUrl, data = self.postdata)
+		result = self.opener.open(loginRequest)            # 访问登录页面，获取到必须的cookie的值
+		#从gb2312转换成unicode
+		content = result.read().decode('gb2312')
+		#网页中含有  请输入正确的验证码
+		if(re.search('验证码'.decode('utf-8'), content)):
+		    print ret
+		    print '验证码不含数字，但识别错误，try again!!'
+		    return
+		#print content     #在终端里正常显示中文
+		#print type(content)   #unicode
+		#print type(content.encode('utf-8'))  #转换为str
+		#print type("错误的".decode('utf-8'))  #转换为unicode
+		#print type("错误的")       #str
+		#print type(u"错误的")     #unicode
+		#print content.encode('utf-8')  #转换为str
+		#网页中含有  错误的用户名密码
+		#都转换成unicode(utf-8)来进行比较
+		if(re.search("错误的".decode('utf-8'), content)):
+			print ret
+			print '验证码识别正确。userid or userpwd error! 账户的用户名或者密码错误，修改用户名密码后重试!!!'
+			return
+		#if result.geturl != self.loginUrl:
+			#print "a redirect was followed"
+		result = self.opener.open(self.scoreUrl)       # 访问成绩页面，获得成绩的数据
+		# 打印返回的成绩内容, 根据网页编码进行解码至unicode
+		scoreContent = result.read().decode('gb2312')
+		#print scoreContent
+
+		# BS实例化网页，因为python-bs版本低，一度总实例化失败(可能tag嵌套过多，或者转移字符%处理失败)
+		soup = BeautifulSoup(scoreContent)
+		#print soup
+
+		self.downloadScores(soup)
+		#self.printScoresWithFormat(userid,soup)
+		self.printScores(userid,soup)
+		return
+
+def main():
+    if len(sys.argv) < 2:
+	print 'Usage: python ./getScore <userid> <userpwd>'
+	return
+    #调用
+    mySpider = Spider(sys.argv[1], sys.argv[2])
+    mySpider.init()
+	
+if __name__ == '__main__':
+    main()
