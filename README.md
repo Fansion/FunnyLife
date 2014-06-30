@@ -25,6 +25,6 @@ In addtion, I will choose to read [柳峰](http://book.douban.com/subject/258387
 
 NOTES
 ---------
-Personal data are replaced by XXX. CCJ(crawing scores) module is implemented mainly for the convenience of checking scores at [USTC](yjs.ustc.edu.cn/).  Correlative modules are needed to run codes above, such as tesseract ocr, 	beautiful soup and so on. Remember to check the log files to get these codes running, contact me if necessary. 
+Personal data are replaced by XXX. CCJ(crawing scores) module is implemented mainly for the convenience of checking scores at [USTC](http://yjs.ustc.edu.cn/).  Correlative modules are needed to run codes above, such as tesseract ocr, 	beautiful soup and so on. Remember to check the log files to get these codes running, contact me if necessary. 
 
 
