@@ -1,6 +1,9 @@
 FunnyLife
 =========
 
+###Currently not at service!
+
+
 Introduction
 ---------
 Here is a backup of programs wrote for a wechat public account named **FunnyLife**(can be search at wechat public account). 
