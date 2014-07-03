@@ -1,8 +1,6 @@
 FunnyLife
 =========
 
-###Currently not at service!
-
 
 Introduction
 ---------
