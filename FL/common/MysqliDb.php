@@ -60,7 +60,8 @@ class MysqliDb{
 	    return false;
 	}
 
-	$sql = "SET NAMES latin1";
+	#$sql = "SET NAMES latin1";
+	$sql = "SET NAMES UTF8";
 	$this->update ( $sql );
 	return true;
     }

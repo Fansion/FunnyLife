@@ -1,11 +1,4 @@
 <?php
-
-/**
- * FunnyLife implemention
- * @author pacozhong
- * modified by Frank
- * 
- */
 require_once dirname(__FILE__).'/GlobalDefine.php';
 require_once dirname(__FILE__).'/MiniLog.php';
 
