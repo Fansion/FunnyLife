@@ -1,11 +1,12 @@
 FunnyLife
 =========
 
+
 Introduction
 ---------
 Here is a backup of programs wrote for a wechat public account named **FunnyLife**(can be search at wechat public account).
 
-It mainly consists of serval *.php* files and a dir for pics used for the service. Also there is a *.py* file(getScore) crawing scores from [USTC](yjs.ustc.edu.cn/).
+It mainly consists of serval *.php* files and a dir for pics used for the service. Also there is a *.py* file(getScore) crawing scores from [USTC](http://yjs.ustc.edu.cn/).
 
 You can use whatever you want here under GPL.
 
@@ -13,7 +14,6 @@ Environment
 ---------
 Programs are deployed on a virtual machine(only 1G mem) on [USTC CLOUD](cloud.ustc.edu.cn/) with a public IP address(thx for admins). **Nginx**, **php5-fpm**, and **mysql**, **tesseract-ocr**, **BeautifulSoup4** are needed for running the service.
 Code.txt,codeimage.bmp,scores.txt all need write permission.
-
 
 
 Reference
